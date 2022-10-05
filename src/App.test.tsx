@@ -3,8 +3,30 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 
 describe("When everything is OK", () =>{
-  test("should render the App component without crashing", () =>{
+
+  beforeEach(() =>{
     render(<App />);
+  });
+  test("should render the App component without crashing", () =>{
     screen.debug();
+  });
+
+  test('should select the children that is being passed to the CustomInput component', () => {
+    screen.getByText(/Input/);
+  });
+
+  test('should select the input element by its role', () =>{
+    screen.getByRole('textbox');
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+  });
+
+  test('should select a label element by its text', () => {
+    screen.getByLabelText('Input:');
+    expect(screen.getByLabelText('Input:')).toBeInTheDocument();
   })
-})
+
+ test('should select input element by placeholder text', () =>{
+  screen.getByPlaceholderText('Example');
+ });
+
+});
